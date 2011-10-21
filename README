@@ -1,0 +1,31 @@
+tornado_flash
+
+A simple flash library to be used with Tornado. 
+
+Data is encoded to json, allowing you store anything that can be json
+encoded into a cookie.
+
+A Basic example.
+
+import tornado.web
+import tornado_flash
+
+class MyRequest(tornado.web.RequestHandler):
+    def get(self):
+        flash = tornado_flash.Flash()
+        self.render("index.html", flash=flash)
+
+class SetFlash(tornado.web.RequestHandler):
+    def get(self):
+    flash = tornado_flash.Flash()
+    flash.data = {"class": "warning", "msg": "WARNING!"}
+    self.redirect("/")
+
+The template can then have:
+{% if flash.data %}
+<div class="{{ flash.data["class"] }}">
+    {{ flash.data["msg"] }}
+</div>
+
+TODO: Build a real demo
+
